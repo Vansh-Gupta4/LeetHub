@@ -1,5 +1,8 @@
 class Solution {
     public List<Integer> partitionLabels(String s) {
+        if(s == null || s.length() == 0){
+            return null;
+        }
         HashMap <Character,Integer> map=new HashMap<>();
         
         // filling of impact of characters
