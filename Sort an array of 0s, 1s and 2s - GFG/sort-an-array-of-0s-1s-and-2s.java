@@ -10,37 +10,36 @@ import java.util.*;
 
 class Solution
 {
-    public static void sort012(int a[], int n)
+    public static void sort012(int nums[], int n)
     {
-        // code here 
-        int c0=0;
-        int c1=0;
-        int c2=0;
-        for(int i=0;i<a.length;i++){
-            if(a[i]==0){
-                c0++;
-            }else if(a[i]==1){
-                c1++;
-            }else{
-                c2++;
-            }
+
+        int lo = 0; 
+        int hi = nums.length - 1; 
+        int mid = 0; 
+        int temp; 
+        while (mid <= hi) { 
+            switch (nums[mid]) { 
+                case 0: { 
+                    temp = nums[lo]; 
+                    nums[lo] = nums[mid]; 
+                    nums[mid] = temp; 
+                    lo++; 
+                    mid++; 
+                    break; 
+                } 
+                case 1: 
+                    mid++; 
+                    break; 
+                case 2: { 
+                    temp = nums[mid]; 
+                    nums[mid] = nums[hi]; 
+                    nums[hi] = temp; 
+                    hi--; 
+                    break; 
+                } 
+            } 
         }
-        int i=0;
-        while(c0>0){
-            a[i]=0;
-            i++;
-            c0--;
-        }
-        while(c1>0){
-            a[i]=1;
-            i++;
-            c1--;
-        }
-        while(c2>0){
-            a[i]=2;
-            i++;
-            c2--;
-        }
+    
     }
 }
 
