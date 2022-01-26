@@ -9,6 +9,8 @@ class Solution {
         int last=-1;
         int first=-1;
         boolean flag=true;
+        
+        //leftDist array banaya
         for(int i=0;i<n;i++){
             if(seats[i]==1){
                leftD[i]=0; 
@@ -23,6 +25,8 @@ class Solution {
                 left++;
             }
         }
+        
+        //rightDist array banaya
         for(int i=n-1;i>=0;i--){
             if(seats[i]==1){
                rightD[i]=0; 
@@ -32,14 +36,17 @@ class Solution {
                 right++;
             }
         }
+        //ek aur baar traverse karke max nikala
         int max=0;
         for(int i=0;i<n;i++){
           max=Math.max(max,Math.min(leftD[i],rightD[i]));
         }
-        if(seats[n-1]==0){
+        
+        if(seats[n-1]==0){   //last mai 0 wala case handled
             max=Math.max(max,n-last-1);
         }
-         if(seats[0]==0){
+        
+         if(seats[0]==0){   //starting mai 0 wala case handled
             max=Math.max(max,first);
         }
         
