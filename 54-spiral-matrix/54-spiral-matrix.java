@@ -1,6 +1,11 @@
 class Solution {
     public List<Integer> spiralOrder(int[][] matrix){ 
+        
         ArrayList<Integer> list=new ArrayList<Integer>();
+         if (matrix.length == 0) {
+            return list;
+        }
+        
         int minc=0;
         int minr=0;
         int maxr=matrix.length-1;
