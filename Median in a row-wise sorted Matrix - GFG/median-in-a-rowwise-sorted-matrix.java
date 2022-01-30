@@ -50,10 +50,14 @@ class Solution {
         return l; 
     }
     int median(int A[][], int r, int c) {
-        int low = Integer.MIN_VALUE;
-        int high = Integer.MAX_VALUE; 
+        int low = Integer.MAX_VALUE;
+        int high = Integer.MIN_VALUE; 
         int n = A.length;
         int m = A[0].length; 
+        for(int i=0;i<n;i++){
+            low=Math.min(low,A[i][0]);
+            high=Math.max(high,A[i][m-1]);
+        }
         while(low <= high) {
             int mid = (low + high) /2; 
             int cnt = 0;
