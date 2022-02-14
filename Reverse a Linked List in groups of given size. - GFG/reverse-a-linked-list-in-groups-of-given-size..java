@@ -72,12 +72,9 @@ class Node
 
 */
 
-class Solution
-{
-    public static Node reverse(Node head, int k)
-    {
-        //Your code here
-        if(head == null)
+class Solution{
+    public static Node reverse(Node head, int k){
+      if(head == null)
           return null;
         Node current = head;
         Node next = null;
