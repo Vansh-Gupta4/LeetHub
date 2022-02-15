@@ -15,26 +15,39 @@ class Node {
 
 class Solution {
     public Node copyRandomList(Node head) {
-       // HashMap which holds old nodes as keys and new nodes as its values. 
-    HashMap<Node, Node> map = new HashMap<Node, Node>();
-    
-    //copy list nodes into hash table
-    Node p = head;
-    while(p != null){
-        map.put(p, new Node(p.val));
-        p = p.next;
-    }
-    
-    //deep copy using hash table
-    Node q = head;
-    while(q != null){
-        map.get(q).next = map.get(q.next);
-        map.get(q).random = map.get(q.random);
-        q = q.next;
-    }
-    
-    //return new head
-    return map.get(head);
-    
+          Node curr = head; 
+          Node front = head;
+          // First round: make copy of each node,
+          // and link them together side-by-side in a single list.
+          while (curr != null) {
+            front = curr.next;
+            Node copy = new Node(curr.val);
+            curr.next = copy;
+            copy.next = front;
+            curr = front;
+          }
+          // Second round: assign random pointers for the copy nodes.
+          curr = head;
+          while (curr != null) {
+            if (curr.random != null) {
+              curr.next.random = curr.random.next;
+            }
+            curr = curr.next.next;
+          }
+          // Third round: restore the original list, and extract the copy list.
+          curr = head;
+          Node pseudoHead = new Node(0);
+          Node copy = pseudoHead;
+
+          while (curr != null) {
+            front = curr.next.next;
+            // extract the copy
+            copy.next = curr.next;
+            copy = copy.next;
+            // restore the original list
+            curr.next = front;
+            curr = front;
+          }
+          return pseudoHead.next;
     }
 }
