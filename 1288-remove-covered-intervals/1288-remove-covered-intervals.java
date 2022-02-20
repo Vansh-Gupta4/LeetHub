@@ -1,15 +1,14 @@
 class Solution {
     public int removeCoveredIntervals(int[][] A) {
-        int res = 0, left = -1, right = -1;
-        Arrays.sort(A, (a, b) -> a[0] - b[0]);
+        Arrays.sort(A, (a, b) ->(a[0]==b[0]?b[1]-a[1]: a[0] - b[0]));
+        int res = 0, prevRange = -1;
         for (int[] v : A) {
-            if (v[0] > left && v[1] > right) {
-                left = v[0];
-                ++res;
+            if (prevRange>= v[1]) {
+                res++;
             }
-            right = Math.max(right, v[1]);
+            prevRange = Math.max(prevRange, v[1]);
         }
-        return res;
+        return A.length-res;
 
     }
 }
