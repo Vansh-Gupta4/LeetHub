@@ -79,41 +79,44 @@ class Solution
     //Function to sort a linked list of 0s, 1s and 2s.
     static Node segregate(Node head)
     {
-         // initialise count of 0 1 and 2 as 0
-       int count[] = {0, 0, 0};
+        if (head == null) return null;
         
-       Node ptr = head;
+        Node curr = head;
+        Node newNode = new Node(0);
+        Node temp = newNode;
         
-       /* count total number of '0', '1' and '2'
-        * count[0] will store total number of '0's
-        * count[1] will store total number of '1's
-        * count[2] will store total number of '2's  */
-       while (ptr != null)
-       {
-            count[ptr.data]++;
-            ptr = ptr.next;
-       }
- 
-       int i = 0;
-       ptr = head;
- 
-       /* Let say count[0] = n1, count[1] = n2 and count[2] = n3
-        * now start traversing list from head node,
-        * 1) fill the list with 0, till n1 > 0
-        * 2) fill the list with 1, till n2 > 0
-        * 3) fill the list with 2, till n3 > 0  */
-        while (ptr != null)
-        {
-            if (count[i] == 0)
-                i++;
-            else
-            {
-               ptr.data= i;
-               --count[i];
-               ptr = ptr.next;
+        // Checking if the first data == 0
+        while(curr != null){
+            if(curr.data == 0){
+                temp.next = new Node(curr.data);
+                temp = temp.next;
             }
-         }
-         return head;
+            curr = curr.next;
+        }
+        
+        curr = head; // Resetting curr back to head
+        
+        // Checking if the first data == 1
+        while(curr != null){
+            if(curr.data == 1){
+                temp.next = new Node(curr.data);
+                temp = temp.next;
+            }
+            curr = curr.next;
+        }
+        
+        curr = head; // Resetting curr back to head
+        
+        // Checking if the first data == 2
+        while(curr != null){
+            if(curr.data == 2){
+                temp.next = new Node(curr.data);
+                temp = temp.next;
+            }
+            curr = curr.next;
+        }
+        
+        return newNode.next;
     }
 }
 
