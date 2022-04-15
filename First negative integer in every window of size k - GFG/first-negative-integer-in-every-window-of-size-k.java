@@ -44,29 +44,31 @@ class GFG {
 
 class Compute {
     
-    public long[] printFirstNegativeInteger(long arr[], int n, int k)
-{
-         boolean flag;
-         long [] ans=new long[n-k+1];
-         int a=0;
-    for (int i = 0; i<(n-k+1); i++){
-        flag = false;
-        for (int j = 0; j<k; j++){
-            if (arr[i+j] < 0){
-                ans[a]=arr[i+j];
-                
-                // System.out.print((arr[i+j])+" ");
-                flag = true;
-                break;
-            }
-        }
-        if (!flag){
-            ans[a]=0;
+   public long[] printFirstNegativeInteger(long A[], int N, int K)
+   {
+       Queue<Long> que = new LinkedList<>();
+       List<Long> list = new ArrayList<>();
+       for(int i=0;i<K-1;i++){
+           if(A[i]<0) que.add(A[i]);
+       }
+       int l=0,u=K-1;
+       while(u<N){
+           if(A[u]<0) que.add(A[u]);
+           //System.out.println(que.peek());
+           if(que.peek()!=null && A[l] == que.peek()){
+              // System.out.println(A[l]);
+               list.add(que.peek());
+               que.remove();
+           }
+           else if(que.peek()==null){long zero=0; list.add(zero);}
+           else list.add(que.peek());
            
-            // System.out.print("0"+" ");
-        }
-        a++;
-    }
-    return ans;
-    }
+           l++;u++;
+       }
+       int size = list.size();
+      long []ans =new long[size];
+      for(int i=0;i<size;i++) ans[i]=list.get(i);
+       //ans[0]=0;
+       return ans;
+   }
 }
