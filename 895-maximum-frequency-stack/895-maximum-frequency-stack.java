@@ -1,30 +1,25 @@
 class FreqStack {
+    HashMap<Integer, Integer> freq = new HashMap<>();
+    HashMap<Integer, Stack<Integer>> m = new HashMap<>();
+    int maxfreq = 0;
 
-    List<Stack<Integer>> bucket;
-    HashMap<Integer, Integer> map;
-    
-    public FreqStack() {
-        bucket = new ArrayList<>();
-        map = new HashMap<>();
-    }
-    
     public void push(int x) {
-        map.put(x, map.getOrDefault(x, 0) + 1);
-        int freq = map.get(x);
-        if (freq - 1 >= bucket.size()) {
-            bucket.add(new Stack<Integer>());
-        }
-        bucket.get(freq - 1).add(x);
+        int f = freq.getOrDefault(x, 0);
+        f++;
+        freq.put(x, f);
+        maxfreq = Math.max(maxfreq, f);
+        if (m.containsKey(f)==false){
+          m.put(f, new Stack<Integer>());  
+        } 
+        m.get(f).add(x);
     }
-    
+
     public int pop() {
-        int freq = bucket.size();
-        int x = bucket.get(freq - 1).pop();
-        if (bucket.get(freq - 1).isEmpty()) bucket.remove(bucket.size() - 1);
-        
-        map.put(x, map.get(x) - 1);
-        if (map.get(x) == 0) map.remove(x);
-        
+        int x = m.get(maxfreq).pop();
+        freq.put(x, maxfreq - 1);
+        if (m.get(maxfreq).size() == 0){  //means stack empty of gya
+          maxfreq--;  
+        } 
         return x;
     }
 }
