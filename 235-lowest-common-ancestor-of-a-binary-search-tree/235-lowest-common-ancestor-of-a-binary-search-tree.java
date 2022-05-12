@@ -9,17 +9,32 @@
  */
 
 class Solution {
+    
+//     Recursive
+    // public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    //     if(root==null){
+    //         return null;
+    //     }
+    //     int curr=root.val;
+    //     if(curr>p.val && curr>q.val){ //case 1 
+    //         return lowestCommonAncestor(root.left,p,q);
+    //     }
+    //     if(curr<p.val && curr<q.val){  //case 2
+    //         return lowestCommonAncestor(root.right,p,q);
+    //     }
+    //     return root;  //case 3
+    // }
+    
+//     iterative
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if(root==null){
-            return null;
-        }
-        int curr=root.val;
-        if(curr>p.val && curr>q.val){ //case 1 
-            return lowestCommonAncestor(root.left,p,q);
-        }
-        if(curr<p.val && curr<q.val){  //case 2
-            return lowestCommonAncestor(root.right,p,q);
-        }
-        return root;  //case 3
+        while(root != null) {
+            if(root.val > p.val && root.val > q.val)
+                root = root.left;
+            else if ( root.val < p.val && root.val < q.val)
+                root = root.right;
+            else
+                return root;
+        }   
+        return root;
     }
 }
