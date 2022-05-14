@@ -13,48 +13,50 @@
  *     }
  * }
  */
-public class Solution {
-    
-    private  TreeNode firstElement;
-    private TreeNode secondElement;
-    // The reason for this initialization is to avoid null pointer exception in the first comparison when prevElement has not been initialized
-    private TreeNode prevElement ;
+class Solution {
+    private TreeNode first;
+    private TreeNode prev;
+    private TreeNode middle;
+    private TreeNode last;
     
     public void recoverTree(TreeNode root) {
-        if(root==null) return;
-        firstElement = null;
-        secondElement = null;
-        prevElement = null;
-        // In order traversal to find the two elements
-        traverse(root);
+        first = middle = last = null; 
+        prev = new TreeNode(Integer.MIN_VALUE); 
         
-        // Swap the values of the two nodes
-        int temp = firstElement.val;
-        firstElement.val = secondElement.val;
-        secondElement.val = temp;
+        inorder(root);
+        
+        if(first!=null && last!=null) {
+            int t = first.val;
+            first.val = last.val;
+            last.val = t; 
+        }
+        else if(first!=null && middle!=null)  {
+            int t = first.val;
+            first.val = middle.val;
+            middle.val = t; 
+        }
+        
     }
     
-    private void traverse(TreeNode root) {
-        
-        if (root == null)
+    public void inorder(TreeNode root) {
+        if(root==null){
             return;
-            
-        traverse(root.left);
-        
-        // Start of "do some business", 
-        // If first element has not been found, assign it to prevElement (refer to 6 in the example above)
-        if (firstElement == null && (prevElement==null ||  prevElement.val >= root.val)) {
-            firstElement = prevElement;
+        }    
+        inorder(root.left);
+        if (prev != null && (root.val < prev.val)){
+           
+            // If this is first violation, mark these two nodes as
+            // 'first' and 'middle'
+            if ( first == null ){
+                first = prev;
+                middle = root;
+            }else{    // If this is second violation, mark this node as last
+                last = root;
+            }
         }
-    
-        // If first element is found, assign the second element to the root (refer to 2 in the example above)
-        if (firstElement != null && prevElement.val >= root.val) {
-            secondElement = root;
-        }        
-        prevElement = root;
-
-        // End of "do some business"
-
-        traverse(root.right);
+ 
+        // Mark this node as previous
+        prev = root;
+        inorder(root.right); 
     }
 }
