@@ -17,19 +17,16 @@ class Solution {  //DFS soln
     }
     
     public boolean validColor(int[][] graph, int node, int[] color) {
-        Queue<Integer> q=new LinkedList<>();
-        q.add(node);
-        color[node]=1;
-        
-        while(!q.isEmpty()){
-            int current=q.poll();
-            for(int c:graph[current]){
-                if(color[c]==-1){
-                    color[c]=1-color[current];
-                    q.add(c);
-                }else if(color[c]==color[current]){
+        for (int it: graph[node]) {
+            if (color[it] == -1) {
+                //Color of variable neighbor is the inverted color of variable node
+                color[it] = 1 - color[node];
+
+                if (!validColor(graph, it, color)){
                     return false;
                 }
+            } else if (color[it] == color[node]) {
+                return false;
             }
         }
         return true;
