@@ -64,7 +64,9 @@ class Solution
     		    int u=arr.get(0);
                 int v=arr.get(1);
                 int w=arr.get(2);
-    		    dist[v]=Math.min(dist[v],dist[u]+w);
+    			if(dist[u] + w < dist[v]) {
+    				dist[v] = dist[u] + w; 
+    			}
     		}
     	}
         return dist;
