@@ -1,5 +1,6 @@
 class Solution {
     public int minRefuelStops(int target, int startFuel, int[][] stations) {
+        if (startFuel >= target) return 0;
         int xCurr=startFuel;
         int count=0;
         
