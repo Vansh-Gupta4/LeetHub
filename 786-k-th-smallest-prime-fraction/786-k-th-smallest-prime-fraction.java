@@ -1,37 +1,30 @@
 class Solution {
-    public int[] kthSmallestPrimeFraction(int[] arr, int k) {
-        int n=arr.length;
-        double lo=arr[0]/(double)arr[n-1];
-        double hi=1;
-        
-        while(lo<hi){
-            double mid=(lo+hi)/2;
-            int values[]=func(arr,mid);  //return count,numerator and denominator
-            if(k<values[0]){
-                hi=mid;
-            }else if(k>values[0]){
-                lo=mid;
-            }else{  //we got answer
-                return new int[]{values[1],values[2]}; 
+    public int[] kthSmallestPrimeFraction(int[] A, int K) {
+        Comparator<int[]> comparator = new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                return A[o1[0]] * A[o2[1]] - A[o1[1]] * A[o2[0]];
+            }
+        };
+        int n = A.length;
+        // Min heap
+        PriorityQueue<int[]> pq = new PriorityQueue<>(comparator);
+        for(int i = 0; i < n - 1; i++) {
+            pq.add(new int[] {i, n-1});
+            if(i == K-1) {
+                break;
             }
         }
-        return null;
-    }
-    public static int[] func(int[] arr, double target){
-        int count=0;
-        int i=0;
-        int n=arr.length;
-        int num=arr[0],deno=arr[n-1];
-        for(int j=1;j<n;j++){
-            while(arr[i]<=target*arr[j]){
-                i++;
+        while(!pq.isEmpty()) {
+            if(--K == 0) {
+                break;
             }
-            count+=i;
-            if(i>0 && arr[i-1]*deno>arr[j]*num){
-                num=arr[i-1];
-                deno=arr[j];
+            int[] top = pq.poll();
+            top[1]--;
+            if(top[1] > top[0]) {
+                pq.add(top);
             }
         }
-        return new int[] {count,num,deno};
+        return new int[] {A[pq.peek()[0]], A[pq.peek()[1]]};      
     }
 }
