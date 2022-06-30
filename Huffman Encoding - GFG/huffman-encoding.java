@@ -34,7 +34,7 @@ class GFG
 
 //User function Template for Java
 
-   class Node implements Comparable<Node>{
+class Node implements Comparable<Node>{
        int data;
        Node left;
        Node right;
@@ -54,21 +54,8 @@ class GFG
 
 class Solution {
      ArrayList<String> ans = new ArrayList<String>();
- void sol(Node root,String s){
-       if(root==null)
-           return;
-       if(root.left==null&&root.right==null){
-           ans.add(s);
-           return;
-       }    
-       if(root.left!=null)
-            sol(root.left,s+"0");
-       if(root.right!=null)
-            sol(root.right,s+"1");
-       
-   }
-    public ArrayList<String> huffmanCodes(String S, int f[], int N)
-   {
+
+    public ArrayList<String> huffmanCodes(String S, int f[], int N){
       
        // Code here
 Node root=null;
@@ -89,5 +76,18 @@ while(pq.size()>1){
 root=pq.remove();
  sol(root,"");
  return ans;
+   }
+    public void sol(Node root,String s){
+       if(root==null)
+           return;
+       if(root.left==null&&root.right==null){
+           ans.add(s);
+           return;
+       }    
+       if(root.left!=null)
+            sol(root.left,s+"0");
+       if(root.right!=null)
+            sol(root.right,s+"1");
+       
    }
 }
