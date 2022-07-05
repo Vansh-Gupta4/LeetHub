@@ -8,13 +8,13 @@ class Solution {
         
         for(int num : nums){
             if(!hashSet.contains(num-1)){
-                int currNum=num;
+               int currNum=num;
                 int currStreak=1;
                 while(hashSet.contains(currNum+1)){
                     currNum++;
                     currStreak++;
                 }
-                longestStreak=Math.max(longestStreak,currStreak);
+                longestStreak=Math.max(longestStreak,currStreak); 
             }else {
                 continue;
             }
