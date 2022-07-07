@@ -1,23 +1,18 @@
 class Solution {
-    public int largestSumAfterKNegations(int[] arr, int k) {
-         for(int i=1;i<=k;i++){
-             int min=Integer.MAX_VALUE;
-             int idx=-1;
-             for(int j=0;j<arr.length;j++){
-                 if(min>arr[j]){
-                    min=arr[j];
-                    idx=j;
-                }
-             }
-             if(min==0){
-                 break;
-             }
-             arr[idx]=-arr[idx];
-         }
-        int sum=0;
-        for(int i=0;i<arr.length;i++){
-            sum+=arr[i];
+    public int largestSumAfterKNegations(int[] A, int K) {
+         Arrays.sort(A);
+        int count = 0, sum = 0, minPositive = Integer.MAX_VALUE;
+        for (int num : A) {
+            if (num < 0 && ++count <= K) {
+                num = -num;
+            }
+            sum += num;
+            minPositive = Math.min(minPositive, num);
         }
-        return sum;
+        if (count > K || (K - count) % 2 == 0) {
+            return sum;
+        } else {
+            return sum - minPositive * 2;
+        }
     }
 }
