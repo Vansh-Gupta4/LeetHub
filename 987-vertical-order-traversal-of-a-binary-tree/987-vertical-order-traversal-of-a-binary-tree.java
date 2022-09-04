@@ -25,7 +25,7 @@ class Tuple {
         col = _col;
     }
 } 
-//     Using Inorder Traversal
+//     Using LevelOrder Traversal
 //     public List<List<Integer>> verticalTraversal(TreeNode root) {
 //         TreeMap < Integer, TreeMap < Integer, PriorityQueue < Integer >>> map = new TreeMap < > ();
 //         Queue < Tuple > q = new LinkedList < Tuple > ();
